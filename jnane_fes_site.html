@@ -1,0 +1,516 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="claude:viewport-fit-sides" content="cover">
+  <title>Jnane Fes — Saveurs du Maroc à Mantes</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <style>
+    /*
+     * Layout Concept: A "Modern Souk" experience.
+     * Deep saffron and emerald tones paired with a clean, airy fast-food grid.
+     * Typographic tension between a traditional Arabic-style serif and a geometric sans.
+     */
+    :root {
+      --color-bg: #fffcf7;
+      --color-surface: #ffffff;
+      --color-text: #2d2a26;
+      --color-text-muted: #6b665f;
+      --color-accent: #d97706; /* Saffron */
+      --color-accent-deep: #b45309;
+      --color-secondary: #065f46; /* Emerald */
+      --color-border: #e5e1da;
+
+      --font-display: 'Amiri', serif;
+      --font-body: 'Outfit', sans-serif;
+
+      --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+      --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+      --radius: 12px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --color-bg: #1a1815;
+        --color-surface: #24211d;
+        --color-text: #f5f2ed;
+        --color-text-muted: #a39e95;
+        --color-accent: #fbbf24;
+        --color-accent-deep: #d97706;
+        --color-secondary: #10b981;
+        --color-border: #332f2a;
+      }
+    }
+
+    :root[data-theme="dark"] {
+      --color-bg: #1a1815;
+      --color-surface: #24211d;
+      --color-text: #f5f2ed;
+      --color-text-muted: #a39e95;
+      --color-accent: #fbbf24;
+      --color-accent-deep: #d97706;
+      --color-secondary: #10b981;
+      --color-border: #332f2a;
+      color-scheme: dark;
+    }
+
+    * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+
+    body {
+      margin: 0;
+      padding-left: max(16px, env(safe-area-inset-left, 0px));
+      padding-right: max(16px, env(safe-area-inset-right, 0px));
+      background: var(--color-bg);
+      color: var(--color-text);
+      font-family: var(--font-body);
+      line-height: 1.6;
+    }
+
+    h1, h2, h3, .display {
+      font-family: var(--font-display);
+      text-wrap: balance;
+      font-weight: 700;
+      color: var(--color-accent-deep);
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding-block: 4rem 2rem;
+    }
+
+    /* Header Section */
+    header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .logo-area {
+      display: inline-block;
+      padding: 1rem 2rem;
+      border: 3px double var(--color-accent);
+      margin-bottom: 1.5rem;
+    }
+
+    .logo-text {
+      font-size: 3rem;
+      margin: 0;
+      line-height: 1;
+    }
+
+    .tagline {
+      font-size: 1.1rem;
+      color: var(--color-text-muted);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    /* Quick Info Bar */
+    .info-bar {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 4rem;
+    }
+
+    .info-card {
+      background: var(--color-surface);
+      padding: 1.25rem;
+      border-radius: var(--radius);
+      border: 1px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .info-card svg {
+      color: var(--color-secondary);
+      flex-shrink: 0;
+    }
+
+    /* Menu Grid */
+    .section-title {
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .section-title::after {
+      content: "";
+      height: 2px;
+      flex-grow: 1;
+      background: var(--color-border);
+    }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-bottom: 4rem;
+    }
+
+    .menu-item {
+      background: var(--color-surface);
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--color-border);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      cursor: pointer;
+    }
+
+    .menu-item:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .item-image {
+      aspect-ratio: 4/3;
+      background: var(--color-border);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .item-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .item-badge {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: var(--color-accent);
+      color: white;
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .item-content {
+      padding: 1.5rem;
+    }
+
+    .item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 0.5rem;
+    }
+
+    .item-name {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      margin: 0;
+      color: var(--color-text);
+    }
+
+    .item-price {
+      font-weight: 800;
+      color: var(--color-accent-deep);
+    }
+
+    .item-desc {
+      color: var(--color-text-muted);
+      font-size: 0.95rem;
+    }
+
+    /* AI Assistant Widget */
+    .ai-widget {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 350px;
+      max-width: calc(100vw - 4rem);
+      background: var(--color-surface);
+      border-radius: 20px;
+      border: 1px solid var(--color-border);
+      box-shadow: var(--shadow-md);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      z-index: 100;
+      transition: height 0.3s ease;
+    }
+
+    .ai-header {
+      background: var(--color-secondary);
+      color: white;
+      padding: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      cursor: pointer;
+    }
+
+    .ai-header h3 {
+      color: white;
+      font-size: 1rem;
+      margin: 0;
+      font-family: var(--font-body);
+    }
+
+    .ai-body {
+      height: 400px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .ai-messages {
+      flex-grow: 1;
+      padding: 1rem;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      font-size: 0.9rem;
+    }
+
+    .msg {
+      max-width: 80%;
+      padding: 0.75rem;
+      border-radius: 12px;
+    }
+
+    .msg-ai {
+      background: var(--color-bg);
+      align-self: flex-start;
+      border-bottom-left-radius: 2px;
+    }
+
+    .msg-user {
+      background: var(--color-accent);
+      color: white;
+      align-self: flex-end;
+      border-bottom-right-radius: 2px;
+    }
+
+    .ai-input {
+      padding: 1rem;
+      border-top: 1px solid var(--color-border);
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .ai-input input {
+      flex-grow: 1;
+      padding: 0.5rem;
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
+      background: var(--color-bg);
+      color: var(--color-text);
+    }
+
+    .ai-input button {
+      background: var(--color-secondary);
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    /* Reviews Section */
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 4rem;
+    }
+
+    .review-card {
+      background: var(--color-surface);
+      padding: 1.5rem;
+      border-radius: var(--radius);
+      border: 1px solid var(--color-border);
+      font-style: italic;
+    }
+
+    .review-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+      font-style: normal;
+    }
+
+    .stars { color: #fbbf24; }
+
+    @media (max-width: 600px) {
+      .logo-text { font-size: 2rem; }
+      .section-title { font-size: 1.75rem; }
+      .ai-widget { right: 1rem; bottom: 1rem; width: calc(100vw - 2rem); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <div class="logo-area">
+        <h1 class="logo-text">Jnane Fes</h1>
+      </div>
+      <div class="tagline">L'Art du Goût Marocain • Mantes-la-Jolie</div>
+    </header>
+
+    <div class="info-bar">
+      <div class="info-card">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+        <div><strong>Mantes 2</strong><br><small>Étage G, Centre Commercial</small></div>
+      </div>
+      <div class="info-card">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+        <div><strong>Ouvert</strong><br><small>Tous les jours jusqu'à 00:00</small></div>
+      </div>
+      <div class="info-card">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-2.18-2 2 2 0 0 1 2-2h19a2 2 0 0 1 2 2z"></path><line x1="8" y1="10" x2="16" y2="10"></line></svg>
+        <div><strong>Contact</strong><br><small>01 30 33 49 57</small></div>
+      </div>
+    </div>
+
+    <h2 class="section-title">Nos Incontournables</h2>
+    <div class="menu-grid">
+      <div class="menu-item">
+        <div class="item-image">
+          <div class="item-badge">Populaire</div>
+          <img src="https://images.unsplash.com/photo-1541518763669-27fefC36ca0d?auto=format&fit=crop&w=400&q=80" alt="Tajine">
+        </div>
+        <div class="item-content">
+          <div class="item-header">
+            <h3 class="item-name">Tajine Légumes et Poulet</h3>
+            <span class="item-price">12€</span>
+          </div>
+          <p class="item-desc">Poulet fondant mijoté avec olives, citrons confits et légumes de saison.</p>
+        </div>
+      </div>
+      <div class="menu-item">
+        <div class="item-image">
+          <img src="https://images.unsplash.com/photo-1585320806297-982f97a87728?auto=format&fit=crop&w=400&q=80" alt="Harira">
+        </div>
+        <div class="item-content">
+          <div class="item-header">
+            <h3 class="item-name">Harira Traditionnelle</h3>
+            <span class="item-price">5€</span>
+          </div>
+          <p class="item-desc">La soupe marocaine iconique aux pois chiches, tomates et herbes fraîches.</p>
+        </div>
+      </div>
+      <div class="menu-item">
+        <div class="item-image">
+          <div class="item-badge">Spécialité</div>
+          <img src="https://images.unsplash.com/photo-1626132646529-50bd3ba9572c?auto=format&fit=crop&w=400&q=80" alt="Harcha">
+        </div>
+        <div class="item-content">
+          <div class="item-header">
+            <h3 class="item-name">Formule Bled Harcha</h3>
+            <span class="item-price">8€</span>
+          </div>
+          <p class="item-desc">Galette de semoule beurrée, accompagnée d'un thé à la menthe authentique.</p>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="section-title">Ce qu'en disent nos clients</h2>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="review-meta">
+          <span class="stars">★★★★★</span>
+          <strong>Soufiane M.</strong>
+        </div>
+        "Un bon thé à la Marocaine et une bonne harcha. Je reviendrai sans hésiter !"
+      </div>
+      <div class="review-card">
+        <div class="review-meta">
+          <span class="stars">★★★★☆</span>
+          <strong>Lydia R.</strong>
+        </div>
+        "Le tajine est vraiment savoureux. L'ambiance est animée, on se croirait vraiment dans un souk !"
+      </div>
+      <div class="review-card">
+        <div class="review-meta">
+          <span class="stars">★★★★★</span>
+          <strong>Marc A.</strong>
+        </div>
+        "Rapide, efficace et surtout très bon. La harira est parfaite pour commencer le repas."
+      </div>
+    </div>
+  </div>
+
+  <div class="ai-widget" id="aiWidget">
+    <div class="ai-header" onclick="toggleAI()">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V4H8"></path><rect x="4" y="8" width="16" height="12" rx="2"></rect><path d="M2 14h2"></path><path d="M20 14h2"></path><path d="M15 13v2"></path><path d="M9 13v2"></path></svg>
+      <h3>Jnane Bot — Assistant Gourmand</h3>
+    </div>
+    <div class="ai-body">
+      <div class="ai-messages" id="aiMessages">
+        <div class="msg msg-ai">Salam ! Je suis l'assistant de Jnane Fes. Vous avez faim ? Dites-moi ce que vous aimez et je vous conseille le plat parfait ! 🍲</div>
+      </div>
+      <div class="ai-input">
+        <input type="text" id="aiInput" placeholder="Je veux quelque chose de léger...">
+        <button onclick="sendMessage()">Envoyer</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function toggleAI() {
+      const body = document.querySelector('.ai-body');
+      body.style.height = body.style.height === '0px' ? '400px' : '0px';
+    }
+
+    const botKnowledge = {
+      "leger": "Pour quelque chose de léger, je vous conseille notre Harira traditionnelle. C'est nutritif et rafraîchissant !",
+      "faim": "Grosse faim ? Le Tajine Légumes et Poulet est notre champion. Accompagnez-le d'un thé à la menthe !",
+      "sucrer": "Pour une touche sucrée, la Formule Bled Harcha est imbattable avec un bon thé.",
+      "souk": "Oui, on assume ! Chez nous, c'est l'ambiance du souk : vivant, bruyant et surtout convivial.",
+      "default": "Tout notre menu est préparé avec passion. Je vous suggère de goûter notre Tajine, c'est une valeur sûre !"
+    };
+
+    function sendMessage() {
+      const input = document.getElementById('aiInput');
+      const messages = document.getElementById('aiMessages');
+      const text = input.value.trim().toLowerCase();
+
+      if (!text) return;
+
+      // User message
+      const userDiv = document.createElement('div');
+      userDiv.className = 'msg msg-user';
+      userDiv.textContent = input.value;
+      messages.appendChild(userDiv);
+
+      input.value = '';
+
+      // AI response
+      setTimeout(() => {
+        const aiDiv = document.createElement('div');
+        aiDiv.className = 'msg msg-ai';
+
+        let response = botKnowledge.default;
+        if (text.includes('leger')) response = botKnowledge.leger;
+        else if (text.includes('faim') || text.includes('manger')) response = botKnowledge.faim;
+        else if (text.includes('sucré') || text.includes('sucre')) response = botKnowledge.sucrer;
+        else if (text.includes('ambiance') || text.includes('bruit')) response = botKnowledge.souk;
+
+        aiDiv.textContent = response;
+        messages.appendChild(aiDiv);
+        messages.scrollTop = messages.scrollHeight;
+      }, 600);
+    }
+
+    // Allow "Enter" key to send
+    document.getElementById('aiInput').addEventListener('keypress', function (e) {
+      if (e.key === 'Enter') sendMessage();
+    });
+  </script>
+</body>
+</html>
